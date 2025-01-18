@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Document</title>
+</head>
+<body>
+    <div class="content">
+        <h1>Upload an Image</h1>
+        <form action="/predict_face/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="fileInput" class="custom-file-upload" id="fileLabel">
+                Choose a File
+            </label>
+            <input type="file" name="image" id="fileInput" accept="image/*" required> <br>
+            <span id="fileName" style="display:none;"></span>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+    
+    <style>
+    .content {
+        text-align: center;
+        margin: 40px;
+        border: 1px solid;
+    }
+    
+    input {
+        border: none;
+    }
+    #fileInput {
+        display: none; 
+    }
+    label {
+        box-shadow: 0px 0px 3px 5px aquamarine;
+        margin: 5px;
+        padding: 5px;
+        background-color: aquamarine;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    label:hover {
+        background-color: aqua;
+    }
+    button {
+        margin: 25px;
+        width: 90px;
+        height: 29px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        background: black;
+    }
+    #fileName {
+        display: block;
+        margin: 10px auto;
+        color: gray;
+        font-style: italic;
+    }
+    </style>
+<script>
+    document.getElementById('fileInput').addEventListener('change', function () {
+        const fileNameSpan = document.getElementById('fileName');
+        const fileLabel = document.getElementById('fileLabel');
+        const file = this.files[0];
+
+        if (file) {
+            fileNameSpan.style.display = 'block';
+            fileNameSpan.textContent = `Selected file: ${file.name}`;
+            fileLabel.textContent = 'Change File';
+        } else {
+            fileNameSpan.style.display = 'none';
+            fileLabel.textContent = 'Choose a File';
+        }
+    });
+</script>
+</body>
+</html>
